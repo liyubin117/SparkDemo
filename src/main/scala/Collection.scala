@@ -44,7 +44,7 @@ object Collection {
     println(arr6.toMap)
 
     //List 不可变Seq
-    val list1 = List(1,2); val list2 = List(3,4)
+    val list1 = List(1,2); val list2 = List(3,4,("one","two"))
     println(list1 ::: list2)
     println(10 +: list1)
     println(list1 :+ 10)
