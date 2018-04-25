@@ -21,7 +21,7 @@ object Func {
     val list0 = List(0,8,5,10,2)
     val arr = Array(1,8,9,10,2,9,15,20,18)
     //元素都乘2倍
-    println(list0.map(_ * 2))
+    println(list0.map(_ * 2)); println(list0.map((_,1)))
     //取偶数元素
     println(list0.filter(_ % 2 == 0))
     //求并集
