@@ -1,3 +1,5 @@
+package base
+
 
 object ScalaWordCount {
   def main(args: Array[String]) {

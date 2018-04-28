@@ -1,3 +1,5 @@
+package base
+
 /**
  * 声明类时不需要加public关键字，默认是public
  * 一个类文件可以声明多个类

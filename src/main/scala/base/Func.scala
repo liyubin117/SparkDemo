@@ -1,3 +1,5 @@
+package base
+
 /**
  * Created by Administrator on 2018/4/20 0020.
  */
@@ -6,6 +8,7 @@ object Func {
     //方法
     def func(s:String){println(s)}; func("hello func")
     def add(x:Int, y:Int):Unit = println(x+y); add(1,2)
+    def simple1 = "simple1"  //无参方法可以去掉括号
 
     //函数
     val f1 = (x:Int,y:Int) => println(x+y); f1(1,2)

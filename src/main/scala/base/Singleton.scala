@@ -1,3 +1,5 @@
+package base
+
 /**
  * Scala通过使用object实现：
  * 1、静态方法、变量
