@@ -1,14 +1,18 @@
 package base
 
-import scala.collection.mutable.{ArrayBuffer, _}
+import scala.collection.mutable.{ArrayBuffer, Map, ListBuffer}
 
 object Collection {
   def main(args: Array[String]) {
     //数组动态初始化，下标从0开始
+    println("----------Array---------")
     val arr1 = new Array[Int](8); println(arr1.toBuffer)
     val arr2 = new Array[String](8); println(arr2.toBuffer)
     //数组静态初始化
-    val arr3 = Array("one", "two", "three"); println(arr3.toBuffer); println(arr3(1))
+    var arr3 = Array("one", "two", "three"); println(arr3.toBuffer); println(arr3(1))
+    arr3(0)="0"
+    println(arr3.mkString(","))
+    //arr3= arr3+"four"  //定长数组Array
     //变长数组
     val arr = ArrayBuffer[Int]()
     //追加元素
@@ -34,21 +38,27 @@ object Collection {
 
     //映射
     //两种创建形式
+    println("----------Map---------")
     val map1 = Map(1->"scala", 2->"java", 3->"python")
     val map2 = Map((1,"scala"), (2,"java"), (3,"python"))
     println(map1(1))
     //默认Map是不可变的，若要修改需要引入可变Map
+    //修改元素
     map1(1)="scala2"
-    println(map1.keys)
-    println(map1.getOrElse(4,-1))
+    //添加元素
+    map1(4)="kotlin"
+    println(map1.values)
+    println(map1.getOrElse(5,-1))
     //array->map
     println(arr6.toMap)
 
     //List 不可变Seq
-    val list1 = List(1,2); val list2 = List(3,4,("one","two"))
-    println(list1 ::: list2)
-    println(10 +: list1)
-    println(list1 :+ 10)
+    println("----------List---------")
+    var list1 = List(1,2); val list2 = List(3,4,("one","two"))
+    println(list1 ::: list2);  println(list1 ++ list2) //叠加List
+    println(10 +: list1);  println(10 :: list1)//新元素加到list前
+    println(list1 :+ "a")  //追加
+    list1 ::= 123; println(list1)  //追加且修改原list
     //ListBuffer 可变List
     val listbuffer = ListBuffer(1,2,3)
     println(listbuffer += 10)

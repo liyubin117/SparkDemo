@@ -1,4 +1,4 @@
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.{HashPartitioner, SparkContext, SparkConf}
 import org.apache.log4j.{Logger, Level}
 
 /**
@@ -10,7 +10,7 @@ object Webrecord {
   Logger.getLogger("akka").setLevel(Level.OFF)
 
   def main(args: Array[String]) {
-    val conf = new SparkConf().setMaster("local").setAppName("webrecord")
+    val conf = new SparkConf().setMaster("local[4]").setAppName("webrecord")
     val sc = new SparkContext(conf)
 
     //加载数据
