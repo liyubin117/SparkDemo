@@ -67,7 +67,7 @@ object RDDdemo extends App{
   //PairRDD聚合
   //combineByKey 是PairRDD聚合的底层实现
   val rdd = sc.parallelize(List((1, "www"), (1, "iteblog"), (1, "com"), (2, "bbs"), (2, "iteblog"), (2, "com"), (3, "good")))
-  rdd.combineByKey(List(_), (x: List[String], y: String) => y :: x, (x: List[String], y: List[String]) => x ::: y).collect // Array((1, List(www, iteblog, com)), (2, List(bbs, iteblog, com)), (3, List(good)))
+  println("combineByKey："+rdd.combineByKey(List(_), (x: List[String], y: String) => y :: x, (x: List[String], y: List[String]) => x ::: y).collect.mkString(",")) // Array((1, List(www, iteblog, com)), (2, List(bbs, iteblog, com)), (3, List(good)))
 
   val m1 = sc.parallelize(List(1->"a",1->"b",2->"b",3->"c",3->"c",3->"c",3->"c"),2)
   println(m1.aggregateByKey("zeroValue")((x,y)=>x+" "+y,(a,b)=>a+"="+b).collect.mkString(","))

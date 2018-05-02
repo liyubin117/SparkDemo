@@ -56,7 +56,8 @@ object Collection {
     println("----------List---------")
     var list1 = List(1,2); val list2 = List(3,4,("one","two"))
     println(list1 ::: list2);  println(list1 ++ list2) //叠加List
-    println(10 +: list1);  println(10 :: list1)//新元素加到list前
+    println(10 +: list1);
+    val list4 = 10 :: list1; println(list4)//新元素加到list前，且不改变原list
     println(list1 :+ "a")  //追加
     list1 ::= 123; println(list1)  //追加且修改原list
     //ListBuffer 可变List
