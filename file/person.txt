@@ -1,0 +1,6 @@
+1,liyubin,27
+2,lingling,18
+3,ningning,20
+4,haha,23
+5,good,26
+6,good,27
