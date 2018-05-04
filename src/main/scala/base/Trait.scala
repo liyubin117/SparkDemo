@@ -26,7 +26,7 @@ class Human extends Animal with Flyable{
   override def fight = println("I can fight")
 
   override val name = "liyubin"
-  override def run = "I can run"
+  override def run = println("I can run")
   override def climb = println("override climb")
 }
 
