@@ -31,6 +31,8 @@ object Collection {
     //常用方法
     println("和："+arr.sum)
     println("排序后："+arr.sorted)
+    //Array内的元素可以是不同类型
+    var arrType = Array("a",1,3.14)
 
     //元组，下标从1开始
     val tuple1 = (1,2,("one","two"),3.14,Map(1->"a",2->"b"),Array(10,20))

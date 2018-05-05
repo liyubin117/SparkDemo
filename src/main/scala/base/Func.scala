@@ -19,8 +19,23 @@ object Func {
     //方法->函数
     val f2 = add _
     m1(f2)
+    m1(add)
+
+    //柯里化
+    println("--------柯里化----------")
+    def currying(x:Int)(y:Int):Int=x*y
+    println(currying(3)(4))
+    def currying1 = currying(3) _
+    println(currying1(5))
+    def curryingImplicit(x:Int)(implicit y:Int=5)=x*y
+    println(curryingImplicit(2))
+    println(curryingImplicit(2)(8))
+    //执行时会在上文中找隐式定义变量，只要类型符合就行，当有多个符合时，则会报错
+    implicit val x = 100
+    println(curryingImplicit(3))
 
     //函数式编程例子
+    println("--------函数式编程例子---------")
     val list0 = List(0,8,5,10,2)
     val arr = Array(1,8,9,10,2,9,15,20,18)
     //元素都乘2倍
@@ -57,6 +72,12 @@ object Func {
     println("聚合")
     println(List(List(1,2,3),List(4,5),List(6)).aggregate(0)(_+_.sum, _+_))
     println(List(List(1,2,3),List(4,5),List(6)).flatten.reduce(_+_))
+    //fold
+    val arr2 = Array(("a",1),("b",2),("c",3))
+    println(arr2.foldLeft(0)(_+_._2))
+    val tuple = Array(1,2,3)
+    println(tuple.reduceLeft(_+_))
+
     //并行计算求和
     println(arr.par.sum)
     //按特定顺序求和
