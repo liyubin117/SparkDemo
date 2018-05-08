@@ -29,7 +29,9 @@ object StructTypeSchema extends App{
 
   //sql方式转换数据
   //注册临时表
+  df.cache()
   df.registerTempTable("person")
+
   //转换
   val res = sqlContext.sql("select name,count(1) from person where age>25 group by name order by name desc")
   res.show()
