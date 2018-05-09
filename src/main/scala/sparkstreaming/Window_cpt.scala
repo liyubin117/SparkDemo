@@ -25,10 +25,10 @@ object Window_cpt extends App{
 
   //批次间隔5秒，窗口长度15秒，滑动长度10秒
   val func = (a:Int,b:Int) => a+b
-  tuples.reduceByKeyAndWindow(func,Seconds(15),Seconds(10))
+  val res:DStream[(String,Int)] = tuples.reduceByKeyAndWindow(func,Seconds(15),Seconds(10))
 
   //默认只显示10条
-//  res.print(50)
+  res.print(50)
   //开启流处理
   ssc.start()
   ssc.awaitTermination()
