@@ -5,16 +5,21 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{HashPartitioner, SparkConf, SparkContext}
 
 /**
- * 按批次准实时累加
+ * 支持检查点容错的按批次准实时累加
  * 使用updateStateByKey可以实现统计每个单词全局次数
  */
-object SparkWC extends App{
-  //必须至少有2个线程，一个负责接收，一个负责处理
-  val sc = new SparkContext(new SparkConf().setAppName("SparkWC").setMaster("local[2]"))
-  sc.setLogLevel("ERROR")
-  //5秒钟一个批次
-  val ssc = new StreamingContext(sc, Seconds(5))
-  ssc.checkpoint("file/stream.SparkWC.ckp")
+object SparkWC_cpt extends App{
+  val cptDirectory = "file/stream.SparkWC.ckp"
+
+  //使用新检查点
+  def createContextUsingNewCpt()={
+    val sc = new SparkContext(new SparkConf().setAppName("SparkWC").setMaster("local[2]"))
+    sc.setLogLevel("ERROR")
+    val ssc = new StreamingContext(sc, Seconds(5))
+    ssc
+  }
+  //若无指定检查点，则使用新检查点
+  val ssc = StreamingContext.getOrCreate(cptDirectory, createContextUsingNewCpt _)
   val stream = ssc.socketTextStream("localhost", 8899)
 
   val tuples:DStream[(String,Int)] = stream.flatMap(_.split(" ")).map((_,1))
