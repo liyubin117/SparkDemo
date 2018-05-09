@@ -1,5 +1,7 @@
-import org.apache.spark.{HashPartitioner, SparkContext, SparkConf}
-import org.apache.log4j.{Logger, Level}
+package spark
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
  * 移动终端上网数据分析

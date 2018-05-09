@@ -1,3 +1,5 @@
+package sparksql
+
 import org.apache.spark.sql.{DataFrame, SQLContext}
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -17,5 +19,5 @@ object ParquetDemo extends App {
   val res = sqlContext.sql("select * from person")
   res.show()
   //写Parquet文件
-//  parquet.write.parquet("file/write_person.parquet")  //windows上无法执行
+  parquet.write.parquet("file/write_person.parquet")  //windows上无法执行
 }

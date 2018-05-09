@@ -1,5 +1,7 @@
+package sparksql
+
+import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 import org.apache.spark.sql.{Row, SQLContext}
-import org.apache.spark.sql.types.{StringType, IntegerType, StructField, StructType}
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**

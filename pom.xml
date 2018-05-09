@@ -41,6 +41,45 @@
             <artifactId>spark-sql_${scala.version}</artifactId>
             <version>${spark.version}</version>
         </dependency>
+        <!--scala-actors依赖，若没有将无法编译通过-->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-actors</artifactId>
+            <version>2.10.4</version>
+        </dependency>
     </dependencies>
+
+    <!--构建配置-->
+    <build>
+        <!--源码目录-->
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <plugins>
+            <!--maven插件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <!--maven-scala插件-->
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+                <version>2.10.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

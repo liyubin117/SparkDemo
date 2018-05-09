@@ -1,3 +1,5 @@
+package spark
+
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.{HashPartitioner, SparkConf, SparkContext}
