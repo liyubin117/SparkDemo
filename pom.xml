@@ -41,6 +41,11 @@
             <artifactId>spark-sql_${scala.version}</artifactId>
             <version>${spark.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming_${scala.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
         <!--scala-actors依赖，若没有将无法编译通过-->
         <dependency>
             <groupId>org.scala-lang</groupId>
