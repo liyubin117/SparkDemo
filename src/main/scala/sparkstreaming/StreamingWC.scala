@@ -8,9 +8,9 @@ import org.apache.spark.{HashPartitioner, SparkConf, SparkContext}
  * 按批次准实时累加
  * 使用updateStateByKey可以实现统计每个单词全局次数
  */
-object SparkWC extends App{
+object StreamingWC extends App{
   //必须至少有2个线程，一个负责接收，一个负责处理
-  val sc = new SparkContext(new SparkConf().setAppName("SparkWC").setMaster("local[2]"))
+  val sc = new SparkContext(new SparkConf().setAppName("StreamingWC").setMaster("local[2]"))
   sc.setLogLevel("ERROR")
   //5秒钟一个批次
   val ssc = new StreamingContext(sc, Seconds(5))

@@ -8,12 +8,12 @@ import org.apache.spark.{HashPartitioner, SparkConf, SparkContext}
  * 支持检查点容错的按批次准实时累加
  * 使用updateStateByKey可以实现统计每个单词全局次数
  */
-object SparkWC_cpt extends App{
-  val cptDirectory = "file/stream.SparkWC.ckp"
+object StreamingWC_cpt extends App{
+  val cptDirectory = "file/stream.StreamingWC_cpt.ckp"
 
   //使用新检查点
   def createContextUsingNewCpt()={
-    val sc = new SparkContext(new SparkConf().setAppName("SparkWC").setMaster("local[2]"))
+    val sc = new SparkContext(new SparkConf().setAppName("StreamingWC_cpt").setMaster("local[2]"))
     sc.setLogLevel("ERROR")
     val ssc = new StreamingContext(sc, Seconds(5))
     ssc
