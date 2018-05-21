@@ -1,6 +1,6 @@
 package actor
 
-import scala.actors.{Future, Actor}
+import scala.actors.{TIMEOUT, Future, Actor}
 import scala.util.control.Breaks._
 /**
  * Created by Administrator on 2018/4/27 0027.
@@ -14,7 +14,7 @@ class ActorMessage extends Actor{
 //    while(true){
     loop{ //也可用loop
       //偏函数
-      receive{
+      receiveWithin(5000){
         case "start" => println("starting...")
         case AsynMsg(id, msg)=>{
           println(s"id:$id, msg:$msg")
@@ -26,6 +26,7 @@ class ActorMessage extends Actor{
           Thread.sleep(1000)
           sender ! ReplyMsg(5, "sync success")
         }
+        case TIMEOUT => println("最多空闲5秒");System.exit(-1)  //若使用receiveWithin偏函数，必要加case TIMEOUT
         case _ => sender ! println("Error")  //actor可接收的消息容量是有限的，使receive方法可以处理收到的所有信息，避免被无关消息占满
       }
     }
