@@ -23,6 +23,7 @@ class WordCountByActorTask extends Actor {
           //将word这些单词变成map的并且是元组类型的，每个都是1，----,记着对他们进行过分组，接着就是计算单词
           val result: Map[String, Int]= words.map((_, 1)).groupBy(_._1).mapValues(_.size)
           sender ! result
+          println(Thread.currentThread().getName+"运算完成")
         }
         case StopTask => println("结束任务");exit()
         case TIMEOUT => println("3秒后退出");exit()
@@ -43,10 +44,11 @@ object WordCountByActor {
       val reply:Future[Any] = t !! CountTask(f)
       //将处理到的结果放到ListBuffer中
       replys += reply
-
+      Thread.sleep(500)
+      t !! StopTask
     }
 
-    //对获得的replay的值进行计算。
+    //对获得的reply的值进行计算。
     while (replys.size > 0) {
       val dones: ListBuffer[Future[Any]] = replys.filter(_.isSet)
       for(f <- dones) {

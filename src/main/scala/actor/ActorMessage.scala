@@ -54,7 +54,6 @@ object ActorMessage extends App{
 
   println("发送异步消息且需要返回值前")
   val future: Future[Any] = act !! AsynMsg(2,"li")
-//  Thread.sleep(2000)
   //获取异步返回值
   breakable{
     while(true){
