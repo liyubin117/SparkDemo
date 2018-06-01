@@ -21,6 +21,14 @@ object Func {
     m1(f2)
     m1(add)
 
+    //变长参数
+    println("------变长参数------")
+    def args(x:Int,y:Int*)=println(y.length)
+    args(1)
+    args(1,2,3)
+    def args2(x:Int*)=println(x.length)  //变长参数可接受空参
+    args2()
+
     //柯里化
     println("--------柯里化----------")
     def currying(x:Int)(y:Int):Int=x*y

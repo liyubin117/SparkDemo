@@ -1,5 +1,6 @@
 package base
 
+import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, Map, ListBuffer}
 
 object Collection {
@@ -69,6 +70,23 @@ object Collection {
     val listbuffer2 = ListBuffer(4,5,6)
     listbuffer ++ listbuffer2; println(listbuffer)
     println(listbuffer ++= listbuffer2)
+
+    //Set
+    println("----------Set---------")
+    //不可变
+    var set1 = Set("A","B")
+    set1 += "C"
+    println(set1.toSet)
+    //可变
+    val set = new scala.collection.mutable.HashSet[String]()
+    set += "a"
+    set += "b"
+    if(set("a")){
+      println("包含a")
+    }
+    if(!set("c")){
+      println("不包含c")
+    }
 
   }
 }

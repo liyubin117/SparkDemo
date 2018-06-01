@@ -14,6 +14,7 @@ class Person {
   private var age: Int = _
   //private[this]修饰的变量，属于对象私有变量，只有本类才能访问
   private[this] var addr: String = _
+  println("I am a person")
 }
 
 //Person类的伴生对象
@@ -51,11 +52,14 @@ class Construct(val id:Int, var name:String, age:Int = 26){
   def this(id:Int, name:String, age:Int, gender:String)={
     this(id, name, age) //第一行必须先调用主构造器
     this.gender = gender
+    println("I am in constructor")
   }
 
   def getAge():Int={
     age
   }
+
+  println("I am out constructor")
 }
 
 object Construct{
