@@ -15,7 +15,19 @@ class ViewBound[T <% Ordered[T]]{ //ViewBound，此处T类型被隐式转换为O
   }
 }
 
+class ContextBoundBase[T](implicit e:T){ //ContextBound原理
+  def print = println("this is " + e)
+}
+
+class ContextBound[T : Ordering]{  //ContextBound，用于在当前作用域查找指定类型
+  def greater(first:T, second:T):T={
+    val ord=implicitly[Ordering[T]]
+    if (ord.gt(first,second)) first else second
+  }
+}
+
 object GenericType extends App{
+  println("----UpperBound-----")
   val upperInt = new UpperBound[Integer]
   println(upperInt.greater(1,2))
 
@@ -24,11 +36,25 @@ object GenericType extends App{
   val mrs2 = new Goddess("wang", 100)
   println(upperGoddess.greater(mrs1, mrs2))
 
-  import MyImplicit.selectGirl
+  println("----ViewBound-----")
+  import MyPredef.selectGirl
   val viewGirl = new ViewBound[Girl]
   val g1 = new Girl("zhou",100,20)
   val g2 = new Girl("wu",120,30)
   println(viewGirl.greater(g1,g2))
+
+  println("----ContextBound-----")
+  implicit val x = 10
+//  implicit val y = 20 //定义多个满足类型的隐式值时会因歧义而报错
+  val cb = new ContextBoundBase[Int]
+  cb.print
+//  implicit val d = 120.5.toDouble
+//  val cb2 = new ContextBoundBase[Double]
+//  cb2.print  //无d会报错，因为在上下文找不到Double隐式值
+
+  val contextGirl = new ContextBound[Girl]
+  println(contextGirl.greater(g1,g2))
+
 }
 
 class Goddess(val name:String, val faceValue:Int) extends Comparable[Goddess]{
