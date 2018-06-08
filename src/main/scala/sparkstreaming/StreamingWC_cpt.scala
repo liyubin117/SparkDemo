@@ -13,7 +13,7 @@ object StreamingWC_cpt extends App{
 
   //使用新检查点
   def createContextUsingNewCpt()={
-    val sc = new SparkContext(new SparkConf().setAppName("StreamingWC_cpt").setMaster("local[2]"))
+    val sc = new SparkContext(new SparkConf().setAppName("StreamingWC_cpt"))
     sc.setLogLevel("ERROR")
     val ssc = new StreamingContext(sc, Seconds(5))
     ssc

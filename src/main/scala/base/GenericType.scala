@@ -15,9 +15,6 @@ class ViewBound[T <% Ordered[T]]{ //ViewBound，此处T类型被隐式转换为O
   }
 }
 
-class ContextBoundBase[T](implicit e:T){ //ContextBound原理
-  def print = println("this is " + e)
-}
 
 class ContextBound[T : Ordering]{  //ContextBound，用于在当前作用域查找指定类型
   def greater(first:T, second:T):T={
@@ -44,13 +41,12 @@ object GenericType extends App{
   println(viewGirl.greater(g1,g2))
 
   println("----ContextBound-----")
+  def print[T](implicit e:T) = println("this is " + e) //ContextBound原理
   implicit val x = 10
 //  implicit val y = 20 //定义多个满足类型的隐式值时会因歧义而报错
-  val cb = new ContextBoundBase[Int]
-  cb.print
+  print[Int]
 //  implicit val d = 120.5.toDouble
-//  val cb2 = new ContextBoundBase[Double]
-//  cb2.print  //无d会报错，因为在上下文找不到Double隐式值
+//  print[Double]  //无d会报错，因为在上下文找不到Double隐式值
 
   val contextGirl = new ContextBound[Girl]
   println(contextGirl.greater(g1,g2))

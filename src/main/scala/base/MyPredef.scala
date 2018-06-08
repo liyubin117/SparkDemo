@@ -28,13 +28,23 @@ object MyPredef {
     }
   }
 
-  implicit object selectGirl2 extends Ordering[Girl]{  //隐式函数
-      override def compare(g:Girl, that: Girl):Int={
-        if(g.faceValue == that.faceValue){
-          that.age - g.age
-        }else {
-          g.faceValue - that.faceValue
-        }
+//  implicit object selectGirl2 extends Ordering[Girl]{  //隐式对象
+//      override def compare(g:Girl, that: Girl):Int={
+//        if(g.faceValue == that.faceValue){
+//          that.age - g.age
+//        }else {
+//          g.faceValue - that.faceValue
+//        }
+//      }
+//  }
+
+  implicit val selectGirl3 = new Ordering[Girl]{  //隐式值
+    override def compare(g:Girl, that: Girl):Int={
+      if(g.faceValue == that.faceValue){
+        that.age - g.age
+      }else {
+        g.faceValue - that.faceValue
       }
+    }
   }
 }
