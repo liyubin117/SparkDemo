@@ -12,7 +12,7 @@ object StreamingWC extends App{
   //必须至少有2个线程，一个负责接收，一个负责处理
   //检查点文件默认存在hdfs的/user/<osname>/
   //设置spark.streaming.stopGracefullyOnShutdown可以优雅地关掉sparkstreaming
-  val sc = new SparkContext(new SparkConf().setAppName("StreamingWC")
+  val sc = new SparkContext(new SparkConf().setAppName("StreamingWC").setMaster("local[2]")
 //    .set("spark.streaming.stopGracefullyOnShutdown","true")
   )
   sc.setLogLevel("ERROR")

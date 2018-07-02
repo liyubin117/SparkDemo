@@ -16,5 +16,6 @@ object Wordcount {
     val words: RDD[(String, Int)] = lines.flatMap(_.split(" ")).map((_,1))
     val cnt = words.reduceByKey(_+_).sortByKey(true)
     println(cnt.collect().toBuffer)
+    cnt.saveAsTextFile("file/cnt.txt")
   }
 }
