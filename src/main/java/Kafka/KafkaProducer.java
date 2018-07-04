@@ -29,8 +29,10 @@ public class KafkaProducer implements Runnable{
         while(true){
             String message = "message_"+i;
             producer.send(new KeyedMessage<Integer,String>(this.topic, message));
+            System.out.println("sent: " + message);
+
             i++;
-            System.out.println("sent: "+i);
+
             try {
                 Thread.sleep(1500);
             } catch (InterruptedException e) {
