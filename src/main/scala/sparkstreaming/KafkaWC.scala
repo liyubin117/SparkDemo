@@ -17,10 +17,18 @@ object KafkaSparkDemoMain {
     scc.checkpoint(".") // 因为使用到了updateStateByKey,所以必须要设置checkpoint 
     val topics = Set("test") //我们需要消费的kafka数据的topic
     val kafkaParam = Map(
-        "metadata.broker.list" -> "VM_0_11_centos:9092" // kafka的broker list地址
+        "metadata.broker.list" -> "spark:9092" // kafka的broker list地址
       )
 
-    val stream: InputDStream[(String, String)] = createStream(scc, kafkaParam, topics)
+    /**
+     * 创建一个从kafka获取数据的流.
+     * scc           spark streaming上下文
+     * kafkaParam    kafka相关配置
+     * topics        需要消费的topic集合
+     */
+    val stream: InputDStream[(String, String)] = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](scc, kafkaParam, topics)
+
+
     stream.map(_._2)      // 取出value
         .flatMap(_.split(" ")) // 将字符串使用空格分隔
         .map(r => (r, 1))      // 每个单词映射成一个pair
@@ -37,14 +45,4 @@ object KafkaSparkDemoMain {
     Some(curr + pre)
   }
 
-  /**
-   * 创建一个从kafka获取数据的流.
-   * @param scc           spark streaming上下文
-   * @param kafkaParam    kafka相关配置
-   * @param topics        需要消费的topic集合
-   * @return
-   */
-  def createStream(scc: StreamingContext, kafkaParam: Map[String, String], topics: Set[String]) = {
-    KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](scc, kafkaParam, topics)
-  }
 }
