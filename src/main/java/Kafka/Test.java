@@ -7,6 +7,6 @@ public class Test {
     public static void main(String[] args){
         new Thread(new KafkaConsumer("test")).start();
 
-//        new Thread(new KafkaProducer("test")).start();
+        new Thread(new KafkaProducer("test")).start();
     }
 }

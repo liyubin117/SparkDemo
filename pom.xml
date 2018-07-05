@@ -52,6 +52,19 @@
             <artifactId>spark-streaming-kafka_${scala.version}</artifactId>
             <version>${spark.version}</version>
         </dependency>
+        <!-- mysql驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.25</version>
+        </dependency>
+        <!-- Jedis -->
+        <!--<dependency>-->
+            <!--<groupId>redis.clients</groupId>-->
+            <!--<artifactId>jedis</artifactId>-->
+            <!--<version>2.9.0</version>-->
+        <!--</dependency>-->
+
 
 
         <!--scala-actors依赖，若没有将无法编译通过-->

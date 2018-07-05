@@ -14,6 +14,9 @@ import org.apache.spark.streaming.{Duration, Seconds, StreamingContext, Time}
 import org.apache.spark.streaming.kafka.KafkaUtils
 import org.apache.spark.streaming.dstream.{DStream, InputDStream}
 
+/**
+ * 每个批次内的pv、ips、uv
+ */
 object DapLogStreaming {
 
   def main (args : Array[String]) {
@@ -54,7 +57,7 @@ object DapLogStreaming {
 case class DapLog(day:String, ip:String, cookieid:String)
 
 object SQLContextSingleton {
-  private var instance: SQLContext = _
+  @transient private var instance: SQLContext = _
   def getInstance(sparkContext: SparkContext): SQLContext = {
     if (instance == null) {
       instance = new SQLContext(sparkContext)
