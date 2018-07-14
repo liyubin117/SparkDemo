@@ -18,7 +18,7 @@ object KafkaSparkDemoMain {
         "metadata.broker.list" -> "spark:9092" // kafka的broker list地址
       )
 
-    val cptDirectory = "file:///file"
+    val cptDirectory = "file/KafkaWC"
 
     //使用新检查点
     def createContextUsingNewCpt()={

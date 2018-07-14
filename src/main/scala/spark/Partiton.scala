@@ -22,7 +22,7 @@ object Partiton extends App{
   println("partitionBy重分区后的分区数："+part2.partitions.length+" 分区方法："+part2.partitioner.toString)
   //coalesce重分区（分区方法None）
   val part3 = part.coalesce(3,false)
-  val part4 = part.coalesce(5,false)  //当重分区后的分区数比原来小时，shuffle必须设为true，否则重分区无效
+  val part4 = part.coalesce(5,false)  //当重分区后的分区数比原来大时，shuffle必须设为true，否则重分区无效
   val part5 = part.coalesce(5,true)
   println("coalesce重分区后的分区数："+part3.partitions.length+" 分区方法："+part3.partitioner.toString)
   println("coalesce重分区后的分区数："+part4.partitions.length+" 分区方法："+part4.partitioner.toString)

@@ -40,14 +40,29 @@ object RDDdemo extends App{
   val sam1 = rdd1.sample(true, 0.5f)
   println(sam1.collect.mkString(","))
 
-  //persist cache（缓存与持久化） lazy操作
-  val persist = sc.parallelize("file://file/webrecord.txt").persist(StorageLevel.MEMORY_AND_DISK_SER_2)
+  println("-----persist cache（缓存与持久化） lazy操作-----")
+  val persist = sc.textFile("file/webrecord.txt").persist(StorageLevel.MEMORY_AND_DISK_SER_2)
   println(persist.count)
   //unpersist（释放缓存） eager操作
   persist.unpersist()
 
-  //聚合
+  println("----------聚合----------")
   val input = sc.parallelize(1 to 10,3)
+  println("每个分区的元素："+input.mapPartitionsWithIndex{
+    (partIdx,iter) => {
+      val part_map = scala.collection.mutable.Map[String,List[Int]]()
+      while(iter.hasNext){
+        val part_name = "part_" + partIdx
+        var elem = iter.next()
+        if(!part_map.contains(part_name)) {
+          part_map(part_name) = List[Int]{elem}
+        } else {
+          part_map(part_name) ::= elem
+        }
+      }
+      part_map.iterator
+    }
+  }.collect.mkString(","))
   //aggregate eager操作
   val aggre = input.aggregate(10)((x,y)=>x+y, (a,b)=>a*b); println(aggre)
   //reduce eager操作
@@ -56,6 +71,14 @@ object RDDdemo extends App{
   val fold = input.fold(9)((x,y) => if(x>y) x else y); println(fold)
   val fold_aggre = input.aggregate(9)((x,y)=>if(x>y) x else y,(a,b)=>if(a>b) a else b)
   println(fold_aggre) //fold是aggregate seqOp、combOp相同的简化版本
+
+  val add = (x: Int, y: Int) => {
+    println(x + "\t" + y)
+    x + y
+  }
+  println(sc.parallelize(List(1, 2, 3, 4, 5, 6, 7, 8), 1).fold(10)(add)) //56
+  println(sc.parallelize(List(1, 2, 3, 4, 5, 6, 7, 8), 2).fold(10)(add)) //66
+
 
   //RDD间操作
   val r1 = sc.parallelize(List("A","B","C"),2)
@@ -98,8 +121,4 @@ object RDDdemo extends App{
   )
   println(sorted.collect.mkString(","))
 
-
-//  while(true){
-//
-//  }
 }
