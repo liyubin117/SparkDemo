@@ -71,13 +71,16 @@ object RDDdemo extends App{
   val fold = input.fold(9)((x,y) => if(x>y) x else y); println(fold)
   val fold_aggre = input.aggregate(9)((x,y)=>if(x>y) x else y,(a,b)=>if(a>b) a else b)
   println(fold_aggre) //fold是aggregate seqOp、combOp相同的简化版本
-
+  println("fold的过程：")
   val add = (x: Int, y: Int) => {
     println(x + "\t" + y)
     x + y
   }
   println(sc.parallelize(List(1, 2, 3, 4, 5, 6, 7, 8), 1).fold(10)(add)) //56
   println(sc.parallelize(List(1, 2, 3, 4, 5, 6, 7, 8), 2).fold(10)(add)) //66
+  //cogroup lazy操作
+  println(rdd1.cogroup(rdd2).collect.mkString(","))
+  println(rdd1.groupBy(_._1).collect.mkString(","))
 
 
   //RDD间操作

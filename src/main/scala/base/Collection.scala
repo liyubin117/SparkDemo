@@ -18,7 +18,7 @@ object Collection {
     val arr = ArrayBuffer[Int]()
     //追加元素
     arr += 1; arr += (2,3); arr ++= Array(1,2,3); println(arr)
-    //插入元素，在param1前插入param2、param3...
+    //插入元素，在param1前插入param2、param3...OffsetReadAndSave
     arr.insert(0, -2, -1); println(arr)
     //删除元素，从param1开始删param2个
     arr.remove(0,1); println(arr)
@@ -59,7 +59,7 @@ object Collection {
     println("----------List---------")
     var list1 = List(1,2); val list2 = List(3,4,("one","two"))
     println(list1 ::: list2);  println(list1 ++ list2) //叠加List
-    println(10 +: list1);
+    println(10 +: list1)
     val list4 = 10 :: list1; println(list4)//新元素加到list前，且不改变原list
     println(list1 :+ "a")  //追加
     list1 ::= 123; println(list1)  //追加且修改原list
@@ -70,6 +70,9 @@ object Collection {
     val listbuffer2 = ListBuffer(4,5,6)
     listbuffer ++ listbuffer2; println(listbuffer)
     println(listbuffer ++= listbuffer2)
+
+    val seq1 = Seq("a",2,3)
+    println(seq1.head) //第一个元素
 
     //Set
     println("----------Set---------")
