@@ -33,4 +33,5 @@ object PartialFunctionDemo extends App{
 
   println(m1("one"))
   println(m2("two"))
+  println(m3(m1))
 }
