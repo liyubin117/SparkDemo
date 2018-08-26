@@ -49,6 +49,12 @@
             <artifactId>spark-streaming_${scala.version}</artifactId>
             <version>${spark.version}</version>
         </dependency>
+        <!-- sparkstreaming集成flume -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming-flume_${scala.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
         <!-- sparkstreaming集成kafka spark1.x适用，2.x不适用，只能与0.10版本kafka集成-->
         <dependency>
             <groupId>org.apache.spark</groupId>
