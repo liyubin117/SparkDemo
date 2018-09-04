@@ -51,6 +51,22 @@ object Func {
     //对map的value进行map
     println(Map("a"->1,"b"->2,"c"->3).mapValues(_*2))
 
+    val a2 = Array(("B",(List("A","D"),1.0)),("D",(List("B","C"),1.0)),("A",(List("B","C","D"),1.0)),("C",(List("C"),1.0)))
+    a2.map(_._2).map(x=>(x._1,x._2/x._1.size)).foreach(println)
+
+    a2.map(_._2).map(x=>(x._1,x._2/x._1.size)).flatMap(_._1).foreach(println)
+
+    a2.map(_._2).flatMap({ case (urls, rank) =>
+        val size = urls.size
+        urls.map(url => (url,rank/size))
+    }).foreach(println)
+
+    println(List("A","D").size)
+
+    val a3: Array[String] = "A-B-C".split("-")
+
+
+
     println("排序")
     println(List((1,"a"),(3,"b"),(2,"c")).sortBy(_._1))
     println(List(1,2,3).sortBy(_.toString))
