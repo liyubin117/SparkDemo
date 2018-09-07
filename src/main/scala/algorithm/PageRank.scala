@@ -41,19 +41,11 @@ object SparkPageRank {
       val parts = s.split("\\s+")
       (parts(0), parts(1))
     }.distinct()
-    val links = website.groupByKey().cache()
+    val links: RDD[(String, Iterable[String])] = website.groupByKey().cache()
     val webcnt = website.count()
-    var ranks = links.mapValues(v => 1.0)
+    var ranks: RDD[(String, Double)] = links.mapValues(v => 1.0)
 
-
-    println("ranks: "+ranks.collect.mkString(","))
-    println("links: "+links.collect.mkString(","))
-    println(links.join(ranks).values.collect.mkString(","))
-    println(links.join(ranks).collect.mkString(","))
-
-    val test: Array[(Iterable[String], Double)] = links.join(ranks).values.collect
-
-    val test2: RDD[(Iterable[String], Double)] = links.join(ranks).values
+    val a: RDD[(String, (Iterable[String], Double))] = links.join(ranks)
 
     for (i <- 1 to iters) {
       val contribs: RDD[(String, Double)] = links.join(ranks).values.flatMap({ case (urls, rank) =>

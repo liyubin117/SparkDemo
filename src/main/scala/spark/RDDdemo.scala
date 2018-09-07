@@ -1,6 +1,7 @@
 package spark
 
 import org.apache.log4j.{Level, Logger}
+import org.apache.spark.rdd.RDD
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.{HashPartitioner, SparkConf, SparkContext}
 
@@ -13,6 +14,10 @@ object RDDdemo extends App{
 
   val sc = new SparkContext(new SparkConf().setAppName("BroadAcc").setMaster("local[3]").set("spark.default.parallelism","2"))
   sc.setLogLevel("ERROR")
+
+  //flatmap
+  val rddA: RDD[List[Int]] = sc.parallelize(List(List(1,2),List(2,3),List(3,4)))
+  rddA.collect.foreach(println)
 
   //join
   val rdd1 = sc.parallelize(List((1,"a"),(2,"b"),(1,"e"),(1,"d"),(5,"e"),(5,"f")))
