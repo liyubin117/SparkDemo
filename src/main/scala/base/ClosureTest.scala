@@ -11,6 +11,10 @@ object ClosureTest {
     println("sum1: " + sum) //6， sum是自由变量，计算结束后，sum的值在闭包内的变化，能够在外面也看到
     args.foreach(calc) //sum的值改变后，函数常量能够看到这个变化，再次计算结果12
     println("sum2: " + sum) //12,
+
+    sum=1
+    args.foreach(calc)
+    println("sum3:" + sum) //执行时也能感知到自由变量当前值
   }
 
   def increaseBy(offset: Int) = {
